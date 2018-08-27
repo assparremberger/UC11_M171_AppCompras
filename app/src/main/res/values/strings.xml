@@ -11,6 +11,9 @@
     <string name="hintQuantidade">Enter the quantity</string>
     <string name="hintCategoria">Enter the category name</string>
     <string name="txtSalvar">Save</string>
+    <string name="txtCancelar">Cancel</string>
+
+
 
 
 </resources>
