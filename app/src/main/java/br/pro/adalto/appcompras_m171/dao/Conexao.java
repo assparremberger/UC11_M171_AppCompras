@@ -19,12 +19,24 @@ public class Conexao extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL(
+                "CREATE TABLE IF NOT EXISTS categorias ( " +
+                "  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , " +
+                "  nome TEXT NOT NULL ) "
+        );
 
+        sqLiteDatabase.execSQL(
+                "CREATE TABLE IF NOT EXISTS produtos ( " +
+                "  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , " +
+                "  nome TEXT NOT NULL  , " +
+                "  quantidade DOUBLE , " +
+                "  codCategoria INTEGER ) "
+        );
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int antigaVersao, int novaVersao) {
+
     }
 }
 
