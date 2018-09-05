@@ -9,8 +9,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.List;
+
+import br.pro.adalto.appcompras_m171.dao.ProdutoDAO;
+import br.pro.adalto.appcompras_m171.model.Produto;
 
 public class ListaActivity extends AppCompatActivity {
+
+    private ListView lvProdutos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +27,8 @@ public class ListaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        lvProdutos = (ListView) findViewById(R.id.lvLista );
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -30,7 +41,27 @@ public class ListaActivity extends AppCompatActivity {
                 startActivity( i );
             }
         });
+
+        carregarProdutos();
     }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        carregarProdutos();
+    }
+
+    private void carregarProdutos(){
+        List<Produto> lista = ProdutoDAO.getProdutos(this);
+        ArrayAdapter adapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, lista);
+        lvProdutos.setAdapter(adapter);
+
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

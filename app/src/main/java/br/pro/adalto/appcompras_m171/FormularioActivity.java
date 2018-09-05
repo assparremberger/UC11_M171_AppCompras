@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +16,9 @@ import android.widget.Spinner;
 import java.util.List;
 
 import br.pro.adalto.appcompras_m171.dao.CategoriaDAO;
+import br.pro.adalto.appcompras_m171.dao.ProdutoDAO;
 import br.pro.adalto.appcompras_m171.model.Categoria;
+import br.pro.adalto.appcompras_m171.model.Produto;
 
 public class FormularioActivity extends AppCompatActivity {
 
@@ -35,7 +38,46 @@ public class FormularioActivity extends AppCompatActivity {
 
         carregarCategorias();
 
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                salvar();
+            }
+        });
+
     }
+
+
+    private void salvar(){
+        String nome = etNome.getText().toString();
+
+        if ( nome.isEmpty() || spCategoria.getSelectedItemPosition() == 0){
+            AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+            alerta.setTitle( getResources().getString(R.string.txtAtencao) );
+            alerta.setMessage( R.string.txtCamposObrigatorios );
+            alerta.setIcon( android.R.drawable.ic_dialog_alert );
+            alerta.setNeutralButton("OK", null);
+            alerta.show();
+        }else {
+            String quantidade = etQuantidade.getText().toString();
+            if ( quantidade.isEmpty() )
+                quantidade = "0";
+            quantidade = quantidade.replace( "," , "." );
+            double qtd = Double.valueOf( quantidade );
+
+            Produto prod = new Produto();
+            prod.setNome( nome );
+            prod.setQuantidade( qtd );
+            prod.setCategoria( (Categoria) spCategoria.getSelectedItem() );
+
+            ProdutoDAO.inserir(this, prod );
+
+            finish();
+
+        }
+
+    }
+
 
 
     @Override

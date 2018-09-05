@@ -13,6 +13,9 @@
     <string name="txtSalvar">Save</string>
     <string name="txtCancelar">Cancel</string>
 
+    <string name="txtAtencao">Attention!!!</string>
+    <string name="txtCamposObrigatorios">Enter required fields, name and category!</string>
+
 
 
 
